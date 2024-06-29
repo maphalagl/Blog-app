@@ -61,7 +61,8 @@ class User(UserMixin, db.Model):
 if not os.path.exists('instance'):
     os.makedirs('instance')
 
-app.config['SQLALCHEMY_DATABASE_URI'] ="sqlite:///" + os.path.abspath(os.path.join(os.path.dirname(__file__), 'instance/posts.db'))
+database = os.environ.get("DATABASE_URL", 'instance/posts.db')
+app.config['SQLALCHEMY_DATABASE_URI'] ="sqlite:///" + os.path.abspath(os.path.join(os.path.dirname(__file__), database))
 
 db.init_app(app)
 
