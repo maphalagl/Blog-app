@@ -23,7 +23,6 @@ login_manager.init_app(app)
 # Initialize SQLAlchemy
 db = SQLAlchemy()
 
-
 # Define database models
 class BlogPost(db.Model):
     __tablename__ = "blog_posts"
@@ -61,8 +60,9 @@ class User(UserMixin, db.Model):
 if not os.path.exists('instance'):
     os.makedirs('instance')
 
-database = os.environ.get("DATABASE_URL", 'instance/posts.db')
-app.config['SQLALCHEMY_DATABASE_URI'] ="sqlite:///" + os.path.abspath(os.path.join(os.path.dirname(__file__), database))
+database = os.environ.get("DATABASE_URL")
+app.config['SQLALCHEMY_DATABASE_URI'] = database
+
 
 db.init_app(app)
 
